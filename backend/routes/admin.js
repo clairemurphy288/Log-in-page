@@ -1,4 +1,5 @@
 const router = require('express').Router();
+var ObjectId = require('mongodb').ObjectId; 
 let Quiz = require("../models/quiz.models");
 //For now quizzes can only work as .txt files
 router.route('/admin').post( async (req,res) => {
@@ -41,10 +42,12 @@ router.route('/admin/quiz').get(async (req,res) => {
     for(let i = 0; i < quiz.length; i++) {
         quizTitles.push(quiz[i].name);
     }
-    res.send(quizTitles);
+    res.send([quizTitles,quiz]);
 });
 
 router.route('/admin/quiz/delete').post(async (req,res) => {
+    console.log(req.body._id);
+    await Quiz.deleteOne({_id: new ObjectId(req.body._id)});
     
  
 });
