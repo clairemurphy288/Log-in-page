@@ -32,7 +32,6 @@ export default class LiveQuiz extends Component {
         let resData;
         await axios.get("http://localhost:5000/admin/quiz").then(function (response) {
             resData = response.data;
-            console.log(resData);
         
           })
           .catch(function (error) {

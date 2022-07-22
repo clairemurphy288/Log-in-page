@@ -51,4 +51,13 @@ router.route('/admin/quiz/delete').post(async (req,res) => {
     
  
 });
+
+router.route('/admin/edit').post(async (req,res) => {
+    const id = new ObjectId(req.body.query);
+    const quiz = await Quiz.find({_id: id});
+    res.send(quiz);
+
+    
+ 
+});
 module.exports = router;

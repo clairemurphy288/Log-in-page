@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom'
 
 
 
@@ -10,6 +11,7 @@ export default function Items (props) {
         const quizzes = props.quizObject;
         setQuiz(quizzes);
     }, [props.quizObject]);
+
 
     function handleRemove(id) {
         const newList = quizzes.filter((quiz) => quiz._id != id);
@@ -21,18 +23,12 @@ export default function Items (props) {
     })
         setQuiz(newList);
     }
-
-    function editQuiz() {
-    console.log("edit");
-    }
-    console.log("this is the quiz array being rendered to the page");
-    console.log(quizzes);
-
-    // const titles = props.quizTitle;
     const listItems = quizzes.map((quiz) =>    
     <div key={quiz._id}><h4>{quiz.name}</h4>
         <i onClick = {() => {handleRemove(quiz._id)}} className="fa-solid fa-trash-can"></i>
-        <i onClick = {editQuiz}className="fa-solid fa-pen"></i>
+        <Link to={{
+            pathname: "/edit" + "/" + quiz._id
+        }}><i className="fa-solid fa-pen"></i></Link>
     </div>  );  return (
       <div>{listItems}</div>  );
   }
