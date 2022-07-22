@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 
 
 export default function Items (props) {
-    console.log(props);
     const [quizzes, setQuiz] = useState([]);
     useEffect(() => {
         const quizzes = props.quizObject;
@@ -26,7 +25,8 @@ export default function Items (props) {
     function editQuiz() {
     console.log("edit");
     }
-
+    console.log("this is the quiz array being rendered to the page");
+    console.log(quizzes);
 
     // const titles = props.quizTitle;
     const listItems = quizzes.map((quiz) =>    

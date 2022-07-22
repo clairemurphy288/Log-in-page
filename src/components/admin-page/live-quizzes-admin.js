@@ -17,24 +17,18 @@ export default class LiveQuiz extends Component {
         this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
     componentDidUpdate(prevProps, prevState) {
-        console.log("update");
-        console.log(prevState.quizObjectData[1]);
-        console.log(this.state.quizObjectData[1]);
-        // if (this.props.quizzes > prevState.quizArray) {
-        //     this.setState({
-        //         quizArray: this.props.quizzes
-        //     }, () => {console.log("Updated quizArray: " + this.state.quizArray)})
-        // } else {
-        //     return prevState;
-        // }
-        
-       
-
+        if( this.state.quizObjectData != this.props.createdQuizzes && this.props.createdQuizzes[1].length != 0) {
+            this.setState({
+                quizObjectData:  this.props.createdQuizzes
+            })
+        } 
+     
+      
+    
     }
  
  
     async componentDidMount () {
-        console.log("mount");
         let resData;
         await axios.get("http://localhost:5000/admin/quiz").then(function (response) {
             resData = response.data;
@@ -46,7 +40,7 @@ export default class LiveQuiz extends Component {
           })
             this.setState({
             quizObjectData: resData
-        }, () => console.log(this.state.quizObjectData[0]));
+        });
     }
     render () {
         return (

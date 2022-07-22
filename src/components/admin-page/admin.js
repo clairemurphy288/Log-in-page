@@ -9,11 +9,11 @@ export default class Admin extends Component {
         this.state = {
             fileContent: "",
             titleOfQuiz: "",
+            resData: [[], []]
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.titleChange = this.titleChange.bind(this);
-
     }
     async onSubmit(e) {
         let resData;
@@ -31,6 +31,9 @@ export default class Admin extends Component {
           })
           .catch(function (error) {
             console.log(error);
+          });
+          this.setState({
+            resData: resData
           })
         
     }
@@ -57,7 +60,7 @@ export default class Admin extends Component {
     render () {
         return (
         <div>
-            <LiveQuiz/>
+            <LiveQuiz createdQuizzes={this.state.resData}/>
             <hr></hr>
         
             <form onSubmit = {this.onSubmit}>
