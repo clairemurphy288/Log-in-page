@@ -1,80 +1,52 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import "./live-quizzes-admin.css";
+import Items from "./Items";
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function deleteQuiz(props) {
 
-    console.log("trash");
-    axios.post("http://localhost:5000/admin/quiz/delete").then(function (response) {
-        
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-
-}
-function editQuiz() {
-    console.log("edit");
-}
-function Items(props) {
-    const titles = props.quizTitle;
-    const listItems = titles.map((number) =>    
-    <div><h4>{number}</h4>
-        <i onClick = {deleteQuiz} class="fa-solid fa-trash-can"></i>
-        <i onClick = {editQuiz}class="fa-solid fa-pen"></i>
-    </div>  );  return (
-      <div>{listItems}</div>  );
-  }
-        
 
 export default class LiveQuiz extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quizArray : []
+            quizObjectData: [[], []]
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
     componentDidUpdate(prevProps, prevState) {
-        console.log("update");
-        console.log(this.props.quizzes);
-        console.log(prevProps.quizzes);
-        console.log(prevState.quizArray);
-        // if (prevProps.quizzes.length < this.state.quizArray.length) {
-        //     this.setState({
-
-
-        //     })
-        // } else {
-        //     return prevState;
-        // }
-        
-       
-
+        if( this.state.quizObjectData != this.props.createdQuizzes && this.props.createdQuizzes[1].length != 0) {
+            this.setState({
+                quizObjectData:  this.props.createdQuizzes
+            })
+        } 
+     
+      
+    
     }
  
  
     async componentDidMount () {
-        console.log("mount");
         let resData;
         await axios.get("http://localhost:5000/admin/quiz").then(function (response) {
             resData = response.data;
+            console.log(resData);
         
           })
           .catch(function (error) {
             console.log(error);
           })
-          this.setState({
-            quizArray: resData
+            this.setState({
+            quizObjectData: resData
         });
     }
     render () {
         return (
         <div>
             <h1>Live Quizzes</h1>
-            <Items quizTitle = {this.state.quizArray}/>
+            <Items quizObject = {this.state.quizObjectData[1]} quizTitle = {this.state.quizObjectData[0]}/>
             
         </div>)
         
