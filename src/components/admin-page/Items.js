@@ -27,7 +27,7 @@ export default function Items (props) {
     <div key={quiz._id}><h4>{quiz.name}</h4>
         <i onClick = {() => {handleRemove(quiz._id)}} className="fa-solid fa-trash-can"></i>
         <Link to={{
-            pathname: "/edit" + "/" + quiz._id
+            pathname: "/edit" + "/" + quiz._id + "/0"
         }}><i className="fa-solid fa-pen"></i></Link>
     </div>  );  return (
       <div>{listItems}</div>  );

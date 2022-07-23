@@ -4,12 +4,8 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 function Questions (props) {
-//   const [quiz, setQuiz] = useState([{
-//     name: "hi",
-//     questions: [{}, {}]
-
-//   }])
-//   console.log(props.quiz[0].questions)
+  const {page} = useParams();
+  console.log(page);
   const list = props.quiz[0].questions;
      
 const listItems = list.map((question, index) => <div>{index}</div> )
