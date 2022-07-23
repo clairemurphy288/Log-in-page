@@ -1,16 +1,30 @@
 import react from 'react';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import {Link }from 'react-router-dom';
 import axios from 'axios';
 
 function Questions (props) {
-  const {page} = useParams();
+  const {query, page} = useParams();
+  const [count, setCount] = useState(page);
   console.log(page);
-  const list = props.quiz[0].questions;
+  // const list = props.quiz[0].questions;
+  function incrementPage() {
+    setCount(count + 1);
+
+  }
+  function decrementPage() {
+    console.log("subtract");
+    setCount(count - 1);
+  }
      
-const listItems = list.map((question, index) => <div>{index}</div> )
+// const listItems = list.map((question, index) => <div>{index}</div> )
 return (
-  <div>{listItems}</div>
+  <div>
+    <Link to={`/edit/${query}/${count}`}><i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i></Link>
+    <Link to={`/edit/${query}/${count}`}><i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i></Link>
+  </div>
+  // <div>{listItems}</div>
 )
 
 
