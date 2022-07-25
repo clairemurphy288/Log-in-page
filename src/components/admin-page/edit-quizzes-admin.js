@@ -8,7 +8,7 @@ import "./edit.css";
 function Questions (props) {
   const {query, page} = useParams();
   const [count, setCount] = useState(Number(page));
-  const [range, setRange] = useState([Number(page),Number(page) + 10])
+  const [range, setRange] = useState([Number(page),Number(page) + 10]);
 
       let list = props.quiz[0].questions; 
       console.log(list);
@@ -20,40 +20,39 @@ function Questions (props) {
     if (count < numberOfPages) {
       setCount(Number(page) + 1);
       console.log(count);
-      
-
-
     }
-
   }
   function decrementPage() {
     if (count > 0) {
       console.log("subtract");
     setCount(Number(page) - 1);
     console.log(count);
-
     }
   }
   useEffect(() => {
     setRange([page*10, page*10 + 10]);
-
   }, [page]);
-  
+
+function onChange(e) {
+  console.log("changed");
+  console.log(e.target);
+
+}
+
 
   function onSubmit(e) {
     e.preventDefault();
     console.log(e);
     // console.log(id);
   }
-
   console.log(range);
   list = list.slice(range[0], range[1]);
 let listItems = list.map((question, index) => 
 <div>
-  <form onSubmit={onSubmit}>
+  <form name={question._id} onSubmit={onSubmit}>
   <textarea defaultValue = {question.question} cols="50" rows="10"></textarea>
   {question.answerChoices.map((answer) => {return (
-    <input defaultValue={answer}></input>
+    <input onChange={onChange} defaultValue={answer}></input>
 
   )} )}
     <button type="submit">Submit Changes</button>
