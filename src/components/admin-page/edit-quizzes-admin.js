@@ -3,13 +3,15 @@ import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {Link }from 'react-router-dom';
 import axios from 'axios';
+import "./edit.css";
 
 function Questions (props) {
   const {query, page} = useParams();
-  const [count, setCount] = useState(Number(0));
-  const [range, setRange] = useState([page,page + 10])
+  const [count, setCount] = useState(Number(page));
+  const [range, setRange] = useState([Number(page),Number(page) + 10])
 
       let list = props.quiz[0].questions; 
+      console.log(list);
       const numberOfPages = Math.round(list.length/10);
       
       console.log("The total number of pages: " + numberOfPages);
@@ -33,20 +35,38 @@ function Questions (props) {
     }
   }
   useEffect(() => {
-    setRange([count*10, count*10 + 10]);
+    setRange([page*10, page*10 + 10]);
 
-  }, [count]);
+  }, [page]);
   
+
+  function onSubmit(e) {
+    e.preventDefault();
+    console.log(e);
+    // console.log(id);
+  }
+
   console.log(range);
   list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) => <div>{question.question}</div> )
+let listItems = list.map((question, index) => 
+<div>
+  <form onSubmit={onSubmit}>
+  <textarea defaultValue = {question.question} cols="50" rows="10"></textarea>
+  {question.answerChoices.map((answer) => {return (
+    <input defaultValue={answer}></input>
+
+  )} )}
+    <button type="submit">Submit Changes</button>
+    <hr></hr>
+    </form>
+</div>
+)
 return (
   <div>
     <div>{listItems}</div>
     <Link to={`/edit/${query}/${count}`}><i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i></Link>
     <Link to={`/edit/${query}/${count}`}><i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i></Link>
   </div>
-  // <div>{listItems}</div>
 )
 
 
@@ -55,7 +75,8 @@ return (
 export default function Edit () {
     const [quiz, setQuiz] = useState([{
       name: "",
-      questions: [{}, {}]
+      questions: [{answerChoices: ["", ""]}],
+      _id: ""
 
     }]);
     console.log(quiz);
