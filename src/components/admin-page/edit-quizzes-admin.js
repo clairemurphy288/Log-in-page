@@ -6,21 +6,43 @@ import axios from 'axios';
 
 function Questions (props) {
   const {query, page} = useParams();
-  const [count, setCount] = useState(page);
-  console.log(page);
-  // const list = props.quiz[0].questions;
+  const [count, setCount] = useState(Number(0));
+  const [range, setRange] = useState([page,page + 10])
+
+      let list = props.quiz[0].questions; 
+      const numberOfPages = Math.round(list.length/10);
+      
+      console.log("The total number of pages: " + numberOfPages);
+
   function incrementPage() {
-    setCount(count + 1);
+    if (count < numberOfPages) {
+      setCount(Number(page) + 1);
+      console.log(count);
+      
+
+
+    }
 
   }
   function decrementPage() {
-    console.log("subtract");
-    setCount(count - 1);
+    if (count > 0) {
+      console.log("subtract");
+    setCount(Number(page) - 1);
+    console.log(count);
+
+    }
   }
-     
-// const listItems = list.map((question, index) => <div>{index}</div> )
+  useEffect(() => {
+    setRange([count*10, count*10 + 10]);
+
+  }, [count]);
+  
+  console.log(range);
+  list = list.slice(range[0], range[1]);
+let listItems = list.map((question, index) => <div>{question.question}</div> )
 return (
   <div>
+    <div>{listItems}</div>
     <Link to={`/edit/${query}/${count}`}><i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i></Link>
     <Link to={`/edit/${query}/${count}`}><i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i></Link>
   </div>
