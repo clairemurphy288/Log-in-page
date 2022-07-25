@@ -1,9 +1,11 @@
 import react from 'react';
+import React from 'react';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {Link }from 'react-router-dom';
 import axios from 'axios';
 import "./edit.css";
+import Form from './form-edit.js'
 
 function Questions (props) {
   const {query, page} = useParams();
@@ -33,33 +35,9 @@ function Questions (props) {
     setRange([page*10, page*10 + 10]);
   }, [page]);
 
-function onChange(e) {
-  console.log("changed");
-  console.log(e.target);
-
-}
-
-
-  function onSubmit(e) {
-    e.preventDefault();
-    console.log(e);
-    // console.log(id);
-  }
   console.log(range);
   list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) => 
-<div>
-  <form name={question._id} onSubmit={onSubmit}>
-  <textarea defaultValue = {question.question} cols="50" rows="10"></textarea>
-  {question.answerChoices.map((answer) => {return (
-    <input onChange={onChange} defaultValue={answer}></input>
-
-  )} )}
-    <button type="submit">Submit Changes</button>
-    <hr></hr>
-    </form>
-</div>
-)
+let listItems = list.map((question, index) =>  <Form id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 return (
   <div>
     <div>{listItems}</div>
@@ -75,7 +53,8 @@ export default function Edit () {
     const [quiz, setQuiz] = useState([{
       name: "",
       questions: [{answerChoices: ["", ""]}],
-      _id: ""
+      _id: "",
+      // answerChoices: ["", ""]
 
     }]);
     console.log(quiz);
