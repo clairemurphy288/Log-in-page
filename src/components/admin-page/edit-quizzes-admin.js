@@ -13,7 +13,6 @@ function Questions (props) {
   const [range, setRange] = useState([Number(page),Number(page) + 10]);
 
       let list = props.quiz[0].questions; 
-      console.log(list);
       const numberOfPages = Math.round(list.length/10);
       
       console.log("The total number of pages: " + numberOfPages);
@@ -21,21 +20,18 @@ function Questions (props) {
   function incrementPage() {
     if (count < numberOfPages) {
       setCount(Number(page) + 1);
-      console.log(count);
     }
   }
   function decrementPage() {
     if (count > 0) {
-      console.log("subtract");
     setCount(Number(page) - 1);
-    console.log(count);
+
     }
   }
   useEffect(() => {
     setRange([page*10, page*10 + 10]);
   }, [page]);
 
-  console.log(range);
   list = list.slice(range[0], range[1]);
 let listItems = list.map((question, index) =>  <Form id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 return (
@@ -57,7 +53,6 @@ export default function Edit () {
       // answerChoices: ["", ""]
 
     }]);
-    console.log(quiz);
     const {query} = useParams();
     useEffect(() => {
       if (quiz[0].name === "") {
@@ -66,7 +61,6 @@ export default function Edit () {
      const getResponse = async ()=> {
       await axios.post("http://localhost:5000/admin/edit", {query: query}).then( async (response) => {
           let ResData = await response.data;
-          console.log(ResData);
           setQuiz(ResData)
           })
           .catch(function (error) {
