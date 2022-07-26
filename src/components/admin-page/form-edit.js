@@ -20,6 +20,7 @@ export default function Form(props) {
         console.log(question)
         await axios.post('http://localhost:5000/admin/edit/quiz', {quizId: props.quizId, question: question, data: data, id: props.id}).then(async res => {
             console.log(res.data);
+            props.setQuiz(res.data)
 
            }).catch(err => console.log(err));
         

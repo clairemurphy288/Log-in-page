@@ -71,6 +71,6 @@ router.route('/admin/edit/quiz').post(async (req,res) => {
    }
   console.log(aQuestion);
   console.log(req.body)
-  res.send("editting!");
+  res.send(quizId);
 });
 module.exports = router;
