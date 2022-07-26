@@ -56,8 +56,10 @@ router.route('/admin/edit').post(async (req,res) => {
     const id = new ObjectId(req.body.query);
     const quiz = await Quiz.find({_id: id});
     res.send(quiz);
+});
 
-    
- 
+router.route('/admin/edit/quiz').post(async (req,res) => {
+  console.log(req.body);
+  res.send("hi");
 });
 module.exports = router;

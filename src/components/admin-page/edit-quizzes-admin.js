@@ -48,9 +48,8 @@ return (
 export default function Edit () {
     const [quiz, setQuiz] = useState([{
       name: "",
-      questions: [{answerChoices: ["", ""]}],
-      _id: "",
-      // answerChoices: ["", ""]
+      questions: [{question: "", answerChoices: ["", ""]}],
+      _id: ""
 
     }]);
     const {query} = useParams();
