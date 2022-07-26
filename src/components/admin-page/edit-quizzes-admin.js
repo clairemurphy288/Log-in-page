@@ -11,8 +11,8 @@ function Questions (props) {
   const {query, page} = useParams();
   const [count, setCount] = useState(Number(page));
   const [range, setRange] = useState([Number(page),Number(page) + 10]);
-
-      let list = props.quiz[0].questions; 
+      
+  let list = props.quiz[0].questions; 
       const numberOfPages = Math.round(list.length/10);
       
       console.log("The total number of pages: " + numberOfPages);
@@ -33,7 +33,7 @@ function Questions (props) {
   }, [page]);
 
   list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) =>  <Form id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+let listItems = list.map((question, index) =>  <Form quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 return (
   <div>
     <div>{listItems}</div>

@@ -18,7 +18,7 @@ export default function Form(props) {
     async function onSubmit(e) {
         e.preventDefault();
         console.log(question)
-        await axios.post('http://localhost:5000/admin/edit/quiz', {question: question, data: data, id: props.id}).then(async res => {
+        await axios.post('http://localhost:5000/admin/edit/quiz', {quizId: props.quizId, question: question, data: data, id: props.id}).then(async res => {
             console.log(res.data);
 
            }).catch(err => console.log(err));
@@ -46,8 +46,6 @@ export default function Form(props) {
 
 function Answer(props) {
     const textInput = React.useRef();
-    // const [answers, setAnswers] = useState(props.answerChoices);
-    // const [index, setIndex] = useState(props.id);
     function onChange(e) {
         let deepCopy = [];
         if ( props.data.length === 0 ) {

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 var ObjectId = require('mongodb').ObjectId; 
-let Quiz = require("../models/quiz.models");
+let {Quiz} = require("../models/quiz.models");
+let {Question} = require("../models/quiz.models");
 //For now quizzes can only work as .txt files
 router.route('/admin').post( async (req,res) => {
     try {
@@ -13,15 +14,16 @@ router.route('/admin').post( async (req,res) => {
         for (let i = 1; i < quiz.length; i++) {
             let line = quiz[i].trim().split("\t");
             //utilizing the question Schema
-            let question = {
+            let question = new Question({
                 question: line[0],
                 answerChoices: [line[1],line[2],line[3],line[4]],
                 indexOfAnswer: Number(line[5]) -1
-            }
+            });
+            await question.save();
             questions.push(question);
         }
         //quizSchema
-        const newQuiz = Quiz({
+        const newQuiz = new Quiz({
             name: title,
             questions: questions
         });
@@ -59,7 +61,16 @@ router.route('/admin/edit').post(async (req,res) => {
 });
 
 router.route('/admin/edit/quiz').post(async (req,res) => {
-  console.log(req.body);
-  res.send("hi");
+    const quizId = new ObjectId(req.body.quizId);
+    const id = new ObjectId(req.body.id);
+   const aQuestion = await Question.find({_id:id });
+   console.log(aQuestion[0].question !== req.body.question);
+   if (aQuestion[0].question !== req.body.question) {
+        await Question.updateOne({question: req.body.question});
+        console.log("Editted the question");
+   }
+  console.log(aQuestion);
+  console.log(req.body)
+  res.send("editting!");
 });
 module.exports = router;

@@ -18,6 +18,7 @@ const questionSchema = new Schema({
 
 
 });
+const Question = mongoose.model('Question', questionSchema);
 //Schema for the quiz which uses questionSchema 
 const quizSchema = new Schema({
     name: {
@@ -34,4 +35,4 @@ const quizSchema = new Schema({
 //This creates the quizzes collection
 const Quiz = mongoose.model('Quiz', quizSchema);
 
-module.exports = Quiz;
+module.exports = {Quiz, Question};
