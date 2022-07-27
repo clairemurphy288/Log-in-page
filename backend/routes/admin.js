@@ -60,9 +60,14 @@ router.route('/admin/edit').post(async (req,res) => {
 });
 
 router.route('/admin/edit/quiz').post(async (req,res) => {
+    console.log(req.body);
     const question = new ObjectId(req.body.id);
     await Quiz.updateOne({'questions._id':question }, {$set: 
-        { 'questions.$.question' : req.body.question }})
+        { 'questions.$.question' : req.body.question }});
+    await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.indexOfAnswer': req.body.indexOfAnswer}});
+    if (req.body.data.length > 1) {
+        await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.answerChoices': req.body.data}});
+    }
     //need to figure out how to query for nested objects
     const quizId = new ObjectId(req.body.quizId);
    const quiz = await Quiz.find({_id:quizId});

@@ -15,10 +15,10 @@ function Questions (props) {
   let list = props.quiz[0].questions; 
       const numberOfPages = Math.round(list.length/10);
       
-      console.log("The total number of pages: " + numberOfPages);
+      // console.log("The total number of pages: " + numberOfPages);
 
   function incrementPage() {
-    if (count < numberOfPages) {
+    if (count < numberOfPages -1) {
       setCount(count + 1);
     }
   }
@@ -31,9 +31,9 @@ function Questions (props) {
   useEffect(() => {
     setRange([count*10, count*10 + 10]);
   }, [count]);
-
+console.log(range);
 list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) =>  <Form setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+let listItems = list.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 return (
   <div>
     <div>{listItems}</div>
@@ -48,7 +48,7 @@ return (
 export default function Edit () {
     const [quiz, setQuiz] = useState([{
       name: "",
-      questions: [{question: "", answerChoices: ["", ""]}],
+      questions: [{question: "", answerChoices: ["", ""], indexOfAnswer: -1}],
       _id: ""
 
     }]);
