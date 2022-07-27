@@ -64,7 +64,9 @@ router.route('/admin/edit/quiz').post(async (req,res) => {
     const question = new ObjectId(req.body.id);
     await Quiz.updateOne({'questions._id':question }, {$set: 
         { 'questions.$.question' : req.body.question }});
-    await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.indexOfAnswer': req.body.indexOfAnswer}});
+    if (req.body.indexOfAnswer !== -1) {
+        await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.indexOfAnswer': req.body.indexOfAnswer}});
+    }
     if (req.body.data.length > 1) {
         await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.answerChoices': req.body.data}});
     }
@@ -72,5 +74,15 @@ router.route('/admin/edit/quiz').post(async (req,res) => {
     const quizId = new ObjectId(req.body.quizId);
    const quiz = await Quiz.find({_id:quizId});
   res.send(quiz);
+});
+
+router.route('/admin/edit/question-delete').post(async (req,res) => {
+    const quiz = new ObjectId(req.body.quizId)
+    const questionForDeletion = new ObjectId(req.body.id);
+    const delete1 = await Quiz.updateOne({_id: quiz}, {$pull: {
+        questions: {_id: questionForDeletion}
+    }});
+    const newQuiz = await Quiz.find({_id:quiz});
+    res.send(newQuiz);
 });
 module.exports = router;
