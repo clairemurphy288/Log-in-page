@@ -33,5 +33,4 @@ const quizSchema = new Schema({
 });
 //This creates the quizzes collection
 const Quiz = mongoose.model('Quiz', quizSchema);
-
-module.exports = Quiz;
+module.exports = {Quiz};
