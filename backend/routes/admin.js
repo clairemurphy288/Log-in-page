@@ -14,12 +14,11 @@ router.route('/admin').post( async (req,res) => {
         for (let i = 1; i < quiz.length; i++) {
             let line = quiz[i].trim().split("\t");
             //utilizing the question Schema
-            let question = new Question({
+            let question = ({
                 question: line[0],
                 answerChoices: [line[1],line[2],line[3],line[4]],
                 indexOfAnswer: Number(line[5]) -1
             });
-            await question.save();
             questions.push(question);
         }
         //quizSchema
@@ -61,16 +60,12 @@ router.route('/admin/edit').post(async (req,res) => {
 });
 
 router.route('/admin/edit/quiz').post(async (req,res) => {
+    const question = new ObjectId(req.body.id);
+    await Quiz.updateOne({'questions._id':question }, {$set: 
+        { 'questions.$.question' : req.body.question }})
+    //need to figure out how to query for nested objects
     const quizId = new ObjectId(req.body.quizId);
-    const id = new ObjectId(req.body.id);
-   const aQuestion = await Question.find({_id:id });
-   console.log(aQuestion[0].question !== req.body.question);
-   if (aQuestion[0].question !== req.body.question) {
-        await Question.updateOne({question: req.body.question});
-        console.log("Editted the question");
-   }
-  console.log(aQuestion);
-  console.log(req.body)
-  res.send(quizId);
+   const quiz = await Quiz.find({_id:quizId});
+  res.send(quiz);
 });
 module.exports = router;

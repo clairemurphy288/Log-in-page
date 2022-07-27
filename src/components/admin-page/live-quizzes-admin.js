@@ -17,6 +17,9 @@ export default class LiveQuiz extends Component {
         this.componentDidUpdate = this.componentDidUpdate.bind(this);
     }
     componentDidUpdate(prevProps, prevState) {
+        console.log(prevProps)
+        console.log(prevState);
+        console.log(this.state.quizObjectData);
         if( this.state.quizObjectData != this.props.createdQuizzes && this.props.createdQuizzes[1].length != 0) {
             this.setState({
                 quizObjectData:  this.props.createdQuizzes
