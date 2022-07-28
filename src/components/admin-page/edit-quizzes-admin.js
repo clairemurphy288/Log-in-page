@@ -24,7 +24,11 @@ export function Questions (props) {
     },[props.search]);
     useEffect(() => {
       if(props.search !== "" ) {
-        setList(props.searchedQuestions);
+        let questions= [];
+        for(let i =0; i < props.searchedQuestions.length; i++) {
+          questions.push(props.searchedQuestions[i].questions);
+        }
+        setList(questions);
         console.log("hi")
       } 
 
@@ -52,7 +56,11 @@ export function Questions (props) {
 console.log(range);
 let subList = list.slice(range[0], range[1]);
 
-let listItems = subList.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+let listItems;
+
+listItems = subList.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+
+ 
 return (
   <div>
     <div>{listItems}</div>

@@ -89,7 +89,8 @@ router.route('/admin/quiz/query').post(async (req,res) => {
     console.log(req.body);
     const quizId = new ObjectId(req.body._id);
     const reg = new RegExp(req.body.search, 'i')
-    const questions = await Quiz.aggregate([{$match: {_id: quizId}}, {$unwind:{path: '$questions'}}, {$match: {'questions.question': reg}}, {$project: {_id:0, name:0}}]);
+    const questions = await Quiz.aggregate([{$match: {_id: quizId}}, {$unwind:{path: '$questions'}},
+    {$unwind:{path: '$questions.question'}}, {$match: {'questions.question': reg}}, {$project: {_id:0, name:0}}]);
     console.log(questions)
     res.send(questions);
     
