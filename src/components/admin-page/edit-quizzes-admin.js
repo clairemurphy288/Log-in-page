@@ -2,10 +2,10 @@ import react from 'react';
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import {Link }from 'react-router-dom';
 import axios from 'axios';
 import "./edit.css";
 import Form from './form-edit.js'
+import Query from './query.js'
 
 function Questions (props) {
   const {query, page} = useParams();
@@ -45,13 +45,13 @@ return (
 
 }
 
-export default function Edit () {
+export default function Edit (props) {
     const [quiz, setQuiz] = useState([{
       name: "",
       questions: [{question: "", answerChoices: ["", ""], indexOfAnswer: -1}],
       _id: ""
-
     }]);
+    const [search, setSearch] = useState("");
     const {query} = useParams();
     useEffect(() => {
       if (quiz[0].name === "") {
@@ -66,5 +66,7 @@ export default function Edit () {
     });
      } 
       
-return(<div><h1>{quiz[0].name}</h1><Questions setQuiz={setQuiz} quiz = {quiz}/></div>)
+return(<div><h1>{quiz[0].name}</h1>
+<Query quizId ={quiz[0]._id}setSearch = {setSearch} search={search}/>
+<Questions setQuiz={setQuiz} quiz = {quiz}/></div>)
 }
