@@ -88,9 +88,10 @@ router.route('/admin/edit/question-delete').post(async (req,res) => {
 router.route('/admin/quiz/query').post(async (req,res) => {
     console.log(req.body);
     const quizId = new ObjectId(req.body._id);
-    // const questions = await Quiz.aggregate[{$match: {_id: quizId}},  ]);
-    // console.log(questions)
-    res.send("search bar connected to backend");
+    const reg = new RegExp(req.body.search, 'i')
+    const questions = await Quiz.aggregate([{$match: {_id: quizId}}, {$unwind:{path: '$questions'}}, {$match: {'questions.question': reg}}]);
+    console.log(questions)
+    res.send(questions);
     
 });
 module.exports = router;

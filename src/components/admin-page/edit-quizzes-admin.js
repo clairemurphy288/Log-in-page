@@ -7,8 +7,7 @@ import "./edit.css";
 import Form from './form-edit.js'
 import Query from './query.js'
 
-function Questions (props) {
-  const {query, page} = useParams();
+export function Questions (props) {
   const [count, setCount] = useState(0);
   const [range, setRange] = useState(count,count + 10);
       
@@ -54,6 +53,7 @@ export default function Edit (props) {
     const [search, setSearch] = useState("");
     const {query} = useParams();
     useEffect(() => {
+      console.log("name")
       if (quiz[0].name === "") {
         getResponse();
       }});
@@ -65,8 +65,17 @@ export default function Edit (props) {
           .catch(function (error) {
     });
      } 
-      
-return(<div><h1>{quiz[0].name}</h1>
+     if (search === "") {
+      return(<div><h1>{quiz[0].name}</h1>
 <Query quizId ={quiz[0]._id}setSearch = {setSearch} search={search}/>
 <Questions setQuiz={setQuiz} quiz = {quiz}/></div>)
+
+     } else {
+      return (<div>
+        <h1>{quiz[0].name}</h1>
+          <Query setQuiz={setQuiz} quiz={quiz} quizId ={quiz[0]._id}setSearch = {setSearch} search={search}/>
+      </div>)
+     }
+      
+
 }

@@ -1,5 +1,6 @@
 import react from 'react';
 import axios from 'axios';
+import Questions from './edit-quizzes-admin';
 
 
 export default function Query(props) {
@@ -11,6 +12,11 @@ export default function Query(props) {
     async function onSubmit(e) {
         await axios.post("http://localhost:5000/admin/quiz/query", {search: props.search, _id: props.quizId}).then( async (response) => {
                 console.log(response.data)
+                // props.setQuiz([{
+                //   name: props.quiz[0].name,
+                //   questions: response.data,
+                //   _id: props.quiz[0]._id
+                // }])
             })
             .catch(function (error) {
       });
@@ -22,5 +28,6 @@ export default function Query(props) {
     <button onClick={onSubmit} class="btn btn-primary">
       <i class="fas fa-search"></i>
     </button>
+    {/* <Questions setQuiz={props.setQuiz} quiz = {props.quiz}/> */}
   </div>)
 }
