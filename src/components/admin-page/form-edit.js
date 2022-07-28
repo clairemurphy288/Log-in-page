@@ -13,8 +13,13 @@ export default function Form(props) {
     async function onClick() {
         await axios.post('http://localhost:5000/admin/edit/question-delete', { quizId: props.quizId, id: props.id}).then(async res => {
             props.setQuiz(res.data);
-
            }).catch(err => console.log(err));
+        await axios.post("http://localhost:5000/admin/quiz/query", {search: props.search, _id: props.quizId}).then( async (response) => {
+            console.log(response.data);
+            props.setQuestions(response.data)
+        })
+        .catch(function (error) {
+  });   
     }
     function onChange(e) {
         setQuestion(input.current.value);

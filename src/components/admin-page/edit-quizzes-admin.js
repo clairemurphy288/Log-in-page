@@ -58,7 +58,7 @@ let subList = list.slice(range[0], range[1]);
 
 let listItems;
 
-listItems = subList.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+listItems = subList.map((question, index) =>  <Form setQuestions = {props.setQuestions} search={props.search} indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 
  
 return (

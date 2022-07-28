@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import LiveQuiz from "./live-quizzes-admin";
 import axios from 'axios';
 import "./admin.css"
+import UserFeed from './users/userFeed';
 
 export default class Admin extends Component {
     constructor(props) {
@@ -73,6 +74,9 @@ export default class Admin extends Component {
                 <button type="submit">Submit</button>
             </div>
             </form>
+            <hr></hr>
+            <UserFeed/>
+
         </div>
         )
     }
