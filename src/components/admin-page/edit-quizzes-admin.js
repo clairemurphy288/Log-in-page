@@ -10,8 +10,27 @@ import Query from './query.js'
 export function Questions (props) {
   const [count, setCount] = useState(0);
   const [range, setRange] = useState(count,count + 10);
-      
-  let list = props.quiz[0].questions; 
+  const [list, setList] = useState( props.quiz[0].questions)
+    useEffect(() => {
+      if(props.search === "" ) {
+        setList(props.quiz[0].questions)
+      } 
+    },[props.quiz]);
+     useEffect(() => {
+      if(props.search === "" ) {
+        props.setQuestions([])
+        setList(props.quiz[0].questions);
+      } 
+    },[props.search]);
+    useEffect(() => {
+      if(props.search !== "" ) {
+        setList(props.searchedQuestions);
+        console.log("hi")
+      } 
+
+    },[props.searchedQuestions])
+
+  // let list = props.quiz[0].questions; 
       const numberOfPages = Math.round(list.length/10);
       
       // console.log("The total number of pages: " + numberOfPages);
@@ -31,8 +50,9 @@ export function Questions (props) {
     setRange([count*10, count*10 + 10]);
   }, [count]);
 console.log(range);
-list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+let subList = list.slice(range[0], range[1]);
+
+let listItems = subList.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
 return (
   <div>
     <div>{listItems}</div>
@@ -51,6 +71,7 @@ export default function Edit (props) {
       _id: ""
     }]);
     const [search, setSearch] = useState("");
+    const [searchedQuestions, setQuestions] = useState([]);
     const {query} = useParams();
     useEffect(() => {
       console.log("name")
@@ -65,17 +86,12 @@ export default function Edit (props) {
           .catch(function (error) {
     });
      } 
-     if (search === "") {
-      return(<div><h1>{quiz[0].name}</h1>
-<Query quizId ={quiz[0]._id}setSearch = {setSearch} search={search}/>
-<Questions setQuiz={setQuiz} quiz = {quiz}/></div>)
 
-     } else {
-      return (<div>
-        <h1>{quiz[0].name}</h1>
-          <Query setQuiz={setQuiz} quiz={quiz} quizId ={quiz[0]._id}setSearch = {setSearch} search={search}/>
-      </div>)
-     }
+      return(<div><h1>{quiz[0].name}</h1>
+      <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
+      <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
+      
+     
       
 
 }
