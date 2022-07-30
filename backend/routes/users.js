@@ -41,5 +41,15 @@ router.route('/feed').get( async (req,res) => {
         res.json('Error' + err);
     }
 });
+
+router.route('/feed').post( async (req,res) => {
+    try {
+        //this function saves the users to our database
+        console.log(req.body.user)
+        res.send("post function working");
+    } catch (err) {
+        res.json('Error' + err);
+    }
+});
     
 module.exports = router;

@@ -6,6 +6,7 @@ export default function UserFeed() {
         _id: "",
         maintenancePlan: false,
         password: "",
+        email: "",
         quizDash: true,
         timer: false,
         typeOfUser: "standard",
@@ -33,30 +34,27 @@ export default function UserFeed() {
 export function User(props) {
     const input = React.useRef();
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [quizView, setQuizView] = useState(props.user.quizDash);
     const [timer, setTimerView] = useState(props.user.timer);
-    const [maintenance, setMaintenance] = useState(props.user.maintenancePlan)
-    function usernameChange(e) {
-        console.log(props.user)
-        setUsername(e.target.value);
-    }
-    function passwordChange(e) {
-        setPassword(e.target.value)
-    }
-    function onSubmit(e) {
-        e.preventDefault();
-    }
-    function setQuiz(e) {
-        setQuizView(!quizView);
-
-    }
-    function setTimer(e) {
-        setTimerView(!timer);
-
-    }
-    function setMaintenancePlan(e) {
-        setMaintenance(!maintenance);
+    const [maintenance, setMaintenance] = useState(props.user.maintenancePlan);
+    const [selected, setOption] = useState(props.user.typeOfUser);
+    
+    async function onSubmit(e) {
+        console.log("submit")
+        const user = {
+            username: username,
+            email: email, 
+            password: password,
+            quizDash: quizView,
+            timer: timer,
+            maintenancePlan: maintenance,
+            typeOfUser: selected
+        }
+        await axios.post('http://localhost:5000/feed', user).then(async (res) => {
+            console.log(res.data);
+        } ).catch(err => console.log(err));
         
     }
     return (
@@ -64,6 +62,8 @@ export function User(props) {
         <form onSubmit={onSubmit}>
             <label>username</label>
             <input onChange={usernameChange} defaultValue={props.user.username}></input>
+            <label>email</label>
+            <input onChange={emailChange} defaultValue={props.user.email}></input>
             <label>password</label>
             <input onChange={passwordChange} defaultValue={props.user.password}></input>
             <div class="form-check">
@@ -78,9 +78,41 @@ export function User(props) {
                 <input onChange={setMaintenancePlan} checked={maintenance} class="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
                 <label class="form-check-label" for="maintenancePlan">maintenance plan</label>
             </div>
-            
-            <button>Submit Changes</button>
+            <select value={selected} onChange={setPrivilege}>
+                <option value="admin">Admin</option>
+                <option value="standard" >Standard</option>
+            </select>
+            <button type="submit">Submit Changes</button>
             <hr></hr>
         </form>
     </div>)
+    // Helper Functions
+        function usernameChange(e) {
+            console.log(props.user)
+            setUsername(e.target.value);
+        }
+        function passwordChange(e) {
+            setPassword(e.target.value)
+        }
+        function emailChange(e) {
+            setEmail(e.target.value);
+        }
+        function onSubmit(e) {
+            e.preventDefault();
+        }
+        function setQuiz(e) {
+            setQuizView(!quizView);
+    
+        }
+        function setTimer(e) {
+            setTimerView(!timer);
+    
+        }
+        function setMaintenancePlan(e) {
+            setMaintenance(!maintenance);
+            
+        }
+        function setPrivilege(e) {
+            setOption(e.target.value);
+        }
 }
