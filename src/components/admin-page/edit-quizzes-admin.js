@@ -36,6 +36,8 @@ export function Questions (props) {
 
   // let list = props.quiz[0].questions; 
       const numberOfPages = Math.round(list.length/10);
+      console.log(numberOfPages)
+      console.log(range);
       
       // console.log("The total number of pages: " + numberOfPages);
 

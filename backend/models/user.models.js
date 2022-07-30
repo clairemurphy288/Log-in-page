@@ -20,6 +20,11 @@ const userSchema = new Schema({
         minlength: 6,
         maxlength: 20
     },
+    email: {
+        type: String,
+        required: true,
+        trim: true
+    },
     typeOfUser : {
         type: String,
         default: "standard"

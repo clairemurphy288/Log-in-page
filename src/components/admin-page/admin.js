@@ -3,6 +3,7 @@ import LiveQuiz from "./live-quizzes-admin";
 import axios from 'axios';
 import "./admin.css"
 import UserFeed from './users/userFeed';
+import { Link } from 'react-router-dom';
 
 export default class Admin extends Component {
     constructor(props) {
@@ -75,7 +76,7 @@ export default class Admin extends Component {
             </div>
             </form>
             <hr></hr>
-            <UserFeed/>
+            <Link to="/user"><h1>Users</h1></Link>
 
         </div>
         )
