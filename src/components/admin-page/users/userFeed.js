@@ -48,13 +48,15 @@ export function User(props) {
         e.preventDefault();
     }
     function setQuiz(e) {
-        console.log(e.target.value);
+        setQuizView(!quizView);
 
     }
     function setTimer(e) {
+        setTimerView(!timer);
 
     }
     function setMaintenancePlan(e) {
+        setMaintenance(!maintenance);
         
     }
     return (
@@ -65,17 +67,18 @@ export function User(props) {
             <label>password</label>
             <input onChange={passwordChange} defaultValue={props.user.password}></input>
             <div class="form-check">
-                <input onClick={setQuiz} checked={props.user.quizDash}class="form-check-input" type="checkbox" value="" id="quizDash"></input>
+                <input onChange={setQuiz} checked={quizView}class="form-check-input" type="checkbox" value="" id="quizDash"></input>
                 <label class="form-check-label" for="quizDash">quiz dashboard</label>
             </div>
             <div class="form-check">
-                <input onChange={setTimer} checked={props.user.timer} class="form-check-input" type="checkbox" value="" id="timeStudy"></input>
+                <input onChange={setTimer} checked={timer} class="form-check-input" type="checkbox" value="" id="timeStudy"></input>
                 <label class="form-check-label" for="timeStudy">time study</label>
             </div>
             <div class="form-check">
-                <input onChange={setMaintenancePlan} checked={props.user.maintenancePlan} class="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
+                <input onChange={setMaintenancePlan} checked={maintenance} class="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
                 <label class="form-check-label" for="maintenancePlan">maintenance plan</label>
             </div>
+            
             <button>Submit Changes</button>
             <hr></hr>
         </form>
