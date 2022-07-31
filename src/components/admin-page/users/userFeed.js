@@ -42,6 +42,7 @@ export function User(props) {
     const [selected, setOption] = useState(props.user.typeOfUser);
     
     async function onSubmit(e) {
+        e.preventDefault();
         console.log("submit")
         const user = {
             username: username,
@@ -59,7 +60,7 @@ export function User(props) {
     }
     return (
     <div>
-        <form onSubmit={onSubmit}>
+        <form onSubmit= {onSubmit}>
             <label>username</label>
             <input onChange={usernameChange} defaultValue={props.user.username}></input>
             <label>email</label>
@@ -96,9 +97,6 @@ export function User(props) {
         }
         function emailChange(e) {
             setEmail(e.target.value);
-        }
-        function onSubmit(e) {
-            e.preventDefault();
         }
         function setQuiz(e) {
             setQuizView(!quizView);
