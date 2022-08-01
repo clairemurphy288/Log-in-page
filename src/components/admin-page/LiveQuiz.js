@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import "./live-quizzes-admin.css";
+import "./LiveQuiz.css";
 import Items from "./Items";
 import { useState, useEffect } from 'react';
 import axios from 'axios';

@@ -1,6 +1,6 @@
 import react from 'react';
 import axios from 'axios';
-import Questions from './edit-quizzes-admin';
+import Questions from './Edit';
 
 
 export default function Query(props) {
