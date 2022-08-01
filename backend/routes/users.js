@@ -66,15 +66,9 @@ router.route('/delete').post( async (req,res) => {
 
 router.route('/query').post( async (req,res) => {
     try {
-        console.log(req.body);
-        res.send("connected to backend");
-        const reg = new RegExp(req.body.search, 'i')
-        const usernameQuery =  await User.find({username: {$regex: reg}});
-        const emailQuery = await User.find({email: {$regex: reg}});
-        console.log(usernameQuery);
-        console.log(emailQuery);
-
-        console.log(query);
+        const reg = new RegExp(req.body.search, 'i');
+        const query = await User.find({$or:[{email: {$regex: reg}}, {username: {$regex: reg}}]});
+        res.send(query);
 
     } catch (err) {
     }

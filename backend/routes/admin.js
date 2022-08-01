@@ -1,7 +1,6 @@
 const router = require('express').Router();
 var ObjectId = require('mongodb').ObjectId; 
 let {Quiz} = require("../models/quiz.models");
-let {Question} = require("../models/quiz.models");
 //For now quizzes can only work as .txt files
 router.route('/admin').post( async (req,res) => {
     try {

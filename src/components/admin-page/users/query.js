@@ -5,18 +5,21 @@ import {useState, useEffect} from 'react';
 
 export default function Query(props) {
     const [search,setSearch] = useState("");
-
-    function onChange(e) {
-        console.log(e.target.value);
-        setSearch(e.target.value);
-        if (search === "") {
+    useEffect(()=> {
+        if (search.length === 0) {
             props.getUsers();
         }
+
+    },[search])
+
+    function onChange(e) {
+        setSearch(e.target.value);
     }
     async function onSubmit(e) {
         await axios.post("http://localhost:5000/query", {search: search}).then( async (response) => {
-                console.log(response.data);
-                // props.setQuestions(response.data)
+                if(response.data.length > 0) {
+                    props.setUsers(response.data);
+                }
             })
             .catch(function (error) {
       });
