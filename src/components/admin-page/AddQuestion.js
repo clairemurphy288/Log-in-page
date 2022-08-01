@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
 import "./form.css";
 import axios from "axios";
-// var ObjectId = require('mongodb').ObjectId; 
 export default function AddQuestion(props) {
     const [answers, setAnswer] = useState(["","","",""]);
     const [question, setQues] = useState("");
