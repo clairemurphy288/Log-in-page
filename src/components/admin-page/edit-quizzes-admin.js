@@ -6,6 +6,7 @@ import axios from 'axios';
 import "./edit.css";
 import Form from './form-edit.js'
 import Query from './query.js'
+import AddQuestion from './AddQuestion';
 
 export function Questions (props) {
   const [count, setCount] = useState(0);
@@ -83,6 +84,7 @@ export default function Edit (props) {
     const [search, setSearch] = useState("");
     const [searchedQuestions, setQuestions] = useState([]);
     const {query} = useParams();
+    const [blankQuestion, setBlankQuestion] = useState(<h1>Nothing Rendered</h1>)
     useEffect(() => {
       console.log("name")
       if (quiz[0].name === "") {
@@ -95,10 +97,18 @@ export default function Edit (props) {
           })
           .catch(function (error) {
     });
-     } 
+     }
+    function addQuestion(e) {
+      console.log("add");
+      setBlankQuestion(<AddQuestion _id={quiz[0]._id} setBlankQuestion={setBlankQuestion}/>)
+
+    }
 
       return(<div><h1>{quiz[0].name}</h1>
       <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
+      {blankQuestion}
+      <i onClick={addQuestion} class="fa-solid fa-plus"></i>
+      <hr></hr>
       <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
       
      

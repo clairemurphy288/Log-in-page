@@ -94,4 +94,11 @@ router.route('/admin/quiz/query').post(async (req,res) => {
     res.send(questions);
     
 });
+router.route('/admin/add').post(async (req,res) => {
+    const quiz = new ObjectId(req.body._id);
+    Quiz.create({_id: quiz, questions: req.body.question});
+    console.log(req.body);
+
+    res.send("connected to backend");
+});
 module.exports = router;
