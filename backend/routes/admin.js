@@ -96,8 +96,8 @@ router.route('/admin/quiz/query').post(async (req,res) => {
 });
 router.route('/admin/add').post(async (req,res) => {
     const quiz = new ObjectId(req.body._id);
-    Quiz.create({_id: quiz, questions: req.body.question});
-    console.log(req.body);
+    const value = await Quiz.updateOne({_id: quiz}, {$push: {questions: req.body.question}});
+    console.log(value)
 
     res.send("connected to backend");
 });
