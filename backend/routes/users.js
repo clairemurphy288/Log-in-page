@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let User = require("../models/user.models");
+var ObjectId = require('mongodb').ObjectId; 
 
 router.route('/').get( async(req,res) => {
 try {
@@ -44,9 +45,20 @@ router.route('/feed').get( async (req,res) => {
 
 router.route('/feed').post( async (req,res) => {
     try {
-        //this function saves the users to our database
+        const _id = new ObjectId(req.body[1]);
         console.log(req.body)
+        await User.updateOne({_id: _id}, req.body[0]);
         res.send("post function working");
+    } catch (err) {
+        res.json('Error' + err);
+    }
+});
+
+router.route('/delete').post( async (req,res) => {
+    try {
+        const _id = new ObjectId(req.body._id);
+        await User.deleteOne({_id: _id});
+        res.send("successfully routed to back")
     } catch (err) {
         res.json('Error' + err);
     }

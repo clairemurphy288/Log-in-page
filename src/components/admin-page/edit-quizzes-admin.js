@@ -42,7 +42,7 @@ export function Questions (props) {
       // console.log("The total number of pages: " + numberOfPages);
 
   function incrementPage() {
-    if (count < numberOfPages -1) {
+    if (count < numberOfPages - 1) {
       setCount(count + 1);
     }
   }
