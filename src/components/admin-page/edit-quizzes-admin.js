@@ -30,7 +30,6 @@ export function Questions (props) {
           questions.push(props.searchedQuestions[i].questions);
         }
         setList(questions);
-        console.log("hi")
       } 
 
     },[props.searchedQuestions])
