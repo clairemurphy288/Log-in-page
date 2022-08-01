@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Query from './query.js';
 export default function UserFeed() {
     const [users, setUsers] = useState([{__v: 0,
         _id: "",
@@ -30,14 +31,12 @@ export default function UserFeed() {
 
     }
     function decrementPage(e) {
-        console.log("-");
         if (count > 0) {
             setCount(count - 1);
         }
 
     }
     function incrementPage(e) {
-        console.log("+")
         if (count < numberOfPages - 1) {
             setCount(count + 1);
         }
@@ -48,6 +47,8 @@ export default function UserFeed() {
     let listItems = userList.map((user) => <User getUsers={getUsers} key={user._id} _id={user._id} user={user}/>)
     return (<div>
                 <h1>Users</h1>
+                <Query getUsers = {getUsers} setUsers = {setUsers}/>
+                <hr></hr>
                 <div>{listItems}</div>
                 <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
                 <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
