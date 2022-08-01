@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        default: "janedoe@gmail.com",
+        required: true,
         trim: true
     },
     typeOfUser : {
