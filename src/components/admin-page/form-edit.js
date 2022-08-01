@@ -10,13 +10,19 @@ export default function Form(props) {
     const [question, setQuestion] = useState(props.question)
     const [selectedAnswer, setAnswer] = useState(props.indexOfAnswer);
     //props I need _id, question
-
+    async function onClick() {
+        await axios.post('http://localhost:5000/admin/edit/question-delete', { quizId: props.quizId, id: props.id}).then(async res => {
+            props.setQuiz(res.data);
+           }).catch(err => console.log(err));
+        await axios.post("http://localhost:5000/admin/quiz/query", {search: props.search, _id: props.quizId}).then( async (response) => {
+            console.log(response.data);
+            props.setQuestions(response.data)
+        })
+        .catch(function (error) {
+  });   
+    }
     function onChange(e) {
         setQuestion(input.current.value);
-        console.log(question);
-        console.log(data);
-        console.log(selectedAnswer);
-
     }
     async function onSubmit(e) {
         e.preventDefault();
@@ -26,15 +32,13 @@ export default function Form(props) {
 
            }).catch(err => console.log(err));
         
-          
-        //props.id for question id
     }
     const answerItems = props.answerChoices.map((answer,index) => (<Answer selectedAnswer={selectedAnswer} setAnswer={setAnswer} setData={setData} data={data} onChange = {onChange} answerChoices={props.answerChoices} index={index} answer={answer}/>))
     return (
 <div>
   <form onSubmit={onSubmit}>
   <textarea ref={input} onChange={onChange}  defaultValue = {props.question} cols="50" rows="10"></textarea>
-  
+  <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
         <h6>Select the correct answer: </h6>
     <div>{answerItems}</div>
     <button type="submit">Submit Changes</button>
@@ -94,7 +98,6 @@ function Answer(props) {
         } 
 
     },[props.selectedAnswer])
-
 
     return (
 

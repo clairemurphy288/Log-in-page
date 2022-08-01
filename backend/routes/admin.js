@@ -1,7 +1,6 @@
 const router = require('express').Router();
 var ObjectId = require('mongodb').ObjectId; 
 let {Quiz} = require("../models/quiz.models");
-let {Question} = require("../models/quiz.models");
 //For now quizzes can only work as .txt files
 router.route('/admin').post( async (req,res) => {
     try {
@@ -64,7 +63,9 @@ router.route('/admin/edit/quiz').post(async (req,res) => {
     const question = new ObjectId(req.body.id);
     await Quiz.updateOne({'questions._id':question }, {$set: 
         { 'questions.$.question' : req.body.question }});
-    await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.indexOfAnswer': req.body.indexOfAnswer}});
+    if (req.body.indexOfAnswer !== -1) {
+        await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.indexOfAnswer': req.body.indexOfAnswer}});
+    }
     if (req.body.data.length > 1) {
         await Quiz.updateOne({'questions._id': question}, {$set: {'questions.$.answerChoices': req.body.data}});
     }
@@ -72,5 +73,25 @@ router.route('/admin/edit/quiz').post(async (req,res) => {
     const quizId = new ObjectId(req.body.quizId);
    const quiz = await Quiz.find({_id:quizId});
   res.send(quiz);
+});
+
+router.route('/admin/edit/question-delete').post(async (req,res) => {
+    const quiz = new ObjectId(req.body.quizId)
+    const questionForDeletion = new ObjectId(req.body.id);
+    const delete1 = await Quiz.updateOne({_id: quiz}, {$pull: {
+        questions: {_id: questionForDeletion}
+    }});
+    const newQuiz = await Quiz.find({_id:quiz});
+    res.send(newQuiz);
+});
+router.route('/admin/quiz/query').post(async (req,res) => {
+    console.log(req.body);
+    const quizId = new ObjectId(req.body._id);
+    const reg = new RegExp(req.body.search, 'i')
+    const questions = await Quiz.aggregate([{$match: {_id: quizId}}, {$unwind:{path: '$questions'}},
+    {$unwind:{path: '$questions.question'}}, {$match: {'questions.question': reg}}, {$project: {_id:0, name:0}}]);
+    console.log(questions)
+    res.send(questions);
+    
 });
 module.exports = router;

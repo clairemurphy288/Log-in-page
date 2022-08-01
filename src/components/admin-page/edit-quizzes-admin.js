@@ -2,23 +2,47 @@ import react from 'react';
 import React from 'react';
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import {Link }from 'react-router-dom';
 import axios from 'axios';
 import "./edit.css";
 import Form from './form-edit.js'
+import Query from './query.js'
 
-function Questions (props) {
-  const {query, page} = useParams();
+export function Questions (props) {
   const [count, setCount] = useState(0);
   const [range, setRange] = useState(count,count + 10);
-      
-  let list = props.quiz[0].questions; 
+  const [list, setList] = useState( props.quiz[0].questions)
+    useEffect(() => {
+      if(props.search === "" ) {
+        setList(props.quiz[0].questions)
+      } 
+    },[props.quiz]);
+     useEffect(() => {
+      if(props.search === "" ) {
+        props.setQuestions([])
+        setList(props.quiz[0].questions);
+      } 
+    },[props.search]);
+    useEffect(() => {
+      if(props.search !== "" ) {
+        let questions= [];
+        for(let i =0; i < props.searchedQuestions.length; i++) {
+          questions.push(props.searchedQuestions[i].questions);
+        }
+        setList(questions);
+        console.log("hi")
+      } 
+
+    },[props.searchedQuestions])
+
+  // let list = props.quiz[0].questions; 
       const numberOfPages = Math.round(list.length/10);
+      console.log(numberOfPages)
+      console.log(range);
       
       // console.log("The total number of pages: " + numberOfPages);
 
   function incrementPage() {
-    if (count < numberOfPages -1) {
+    if (count < numberOfPages - 1) {
       setCount(count + 1);
     }
   }
@@ -32,8 +56,13 @@ function Questions (props) {
     setRange([count*10, count*10 + 10]);
   }, [count]);
 console.log(range);
-list = list.slice(range[0], range[1]);
-let listItems = list.map((question, index) =>  <Form indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+let subList = list.slice(range[0], range[1]);
+
+let listItems;
+
+listItems = subList.map((question, index) =>  <Form setQuestions = {props.setQuestions} search={props.search} indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
+
+ 
 return (
   <div>
     <div>{listItems}</div>
@@ -45,15 +74,17 @@ return (
 
 }
 
-export default function Edit () {
+export default function Edit (props) {
     const [quiz, setQuiz] = useState([{
       name: "",
       questions: [{question: "", answerChoices: ["", ""], indexOfAnswer: -1}],
       _id: ""
-
     }]);
+    const [search, setSearch] = useState("");
+    const [searchedQuestions, setQuestions] = useState([]);
     const {query} = useParams();
     useEffect(() => {
+      console.log("name")
       if (quiz[0].name === "") {
         getResponse();
       }});
@@ -65,6 +96,12 @@ export default function Edit () {
           .catch(function (error) {
     });
      } 
+
+      return(<div><h1>{quiz[0].name}</h1>
+      <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
+      <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
       
-return(<div><h1>{quiz[0].name}</h1><Questions setQuiz={setQuiz} quiz = {quiz}/></div>)
+     
+      
+
 }
