@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Query from './query.js';
+import AddUser from './AddUser';
 export default function UserFeed() {
     const [users, setUsers] = useState([{__v: 0,
         _id: "",
@@ -19,6 +20,7 @@ export default function UserFeed() {
     } );
     const [count, setCount] = useState(0);
     const [range, setRange] = useState([count, count+10]);
+    const [blankUser, setBlankUser] = useState(<div><h1>Nothing Rendered Yet</h1></div>)
 
     useEffect(() => {
         setRange([count*10, count*10 + 10]);
@@ -42,12 +44,19 @@ export default function UserFeed() {
         }
 
     }
+    function addUser(e) {
+        console.log("add user");
+        setBlankUser(<AddUser/>)
+
+    }
     let numberOfPages = Math.round(users.length/10);
     let userList = users.slice(range[0], range[1]);
     let listItems = userList.map((user) => <User getUsers={getUsers} key={user._id} _id={user._id} user={user}/>)
     return (<div>
                 <h1>Users</h1>
                 <Query getUsers = {getUsers} setUsers = {setUsers}/>
+                {blankUser}
+                <i onClick={addUser} class="fa-solid fa-plus"></i>
                 <hr></hr>
                 <div>{listItems}</div>
                 <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
