@@ -20,7 +20,7 @@ export default function UserFeed() {
     } );
     const [count, setCount] = useState(0);
     const [range, setRange] = useState([count, count+10]);
-    const [blankUser, setBlankUser] = useState(<div><h1>Nothing Rendered Yet</h1></div>)
+    const [blankUser, setBlankUser] = useState(<div><h1>Add a new user!</h1></div>)
 
     useEffect(() => {
         setRange([count*10, count*10 + 10]);
@@ -46,7 +46,7 @@ export default function UserFeed() {
     }
     function addUser(e) {
         console.log("add user");
-        setBlankUser(<AddUser/>)
+        setBlankUser(<AddUser getUsers={getUsers} setBlankUser={setBlankUser}/>)
 
     }
     let numberOfPages = Math.round(users.length/10);

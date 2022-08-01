@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from 'axios';
 export default function AddUser(props) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -10,10 +11,25 @@ export default function AddUser(props) {
 
     function onClick(e) {
         console.log("delete");
+        props.setBlankUser(<h1>Work Deleted!</h1>)
     }
-    function onSubmit(e) {
+    async function onSubmit(e) {
         e.preventDefault();
-        console.log("submit");
+        const user = {
+            username: username,
+            email: email, 
+            password: password,
+            quizDash: quizView,
+            timer: timer,
+            maintenancePlan: maintenance,
+            typeOfUser: selected
+        }
+        await axios.post('http://localhost:5000/', {user: user}).then(async (res) => {
+            console.log(res.data);
+        } ).catch(err => console.log(err));
+        props.getUsers();
+        props.setBlankUser(<h1>User Added!</h1>)
+
     }
     return(
     <div>
@@ -42,7 +58,7 @@ export default function AddUser(props) {
                 <option value="admin">Admin</option>
                 <option value="standard" >Standard</option>
             </select>
-            <button type="submit">Submit Changes</button>
+            <button type="submit">Add</button>
         </form>
     </div>)
 
