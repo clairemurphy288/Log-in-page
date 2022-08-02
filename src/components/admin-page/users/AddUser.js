@@ -33,33 +33,50 @@ export default function AddUser(props) {
     }
     return(
     <div>
-        <h1>Add a User!</h1>
+        <div className="container">
         <form onSubmit= {onSubmit}>
-        <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
-            <label>username</label>
-            <input onChange={usernameChange} ></input>
-            <label>email</label>
-            <input onChange={emailChange}></input>
-            <label>password</label>
-            <input onChange={passwordChange}></input>
-            <div className="form-check">
-                <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
-                <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+        <i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
+            <div className='row'>
+                <div class="mb-3 col">
+                    <label htmlFor="username" class="form-label">username</label>
+                    <input onChange={usernameChange}type="text" class="form-control" id="username"></input>
+                 </div>
+                <div class="mb-3 col">
+                    <label htmlFor="email" className="form-label">email</label>
+                    <input onChange={emailChange}type="text" className="form-control" id="email"></input>
+                </div>
             </div>
-            <div className="form-check">
-                <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
-                <label className="form-check-label" htmlFor="timeStudy">time study</label>
+            <div className="row">
+            <div class="col mb-3">
+                <label htmlFor="password" class="form-label">password</label>
+                <input onChange={passwordChange}type="text" class="form-control" id="password"></input>
             </div>
-            <div className="form-check">
-                <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
-                <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
             </div>
-            <select value={selected} onChange={setPrivilege}>
+
+            <select className="form-select" value={selected} onChange={setPrivilege}>
                 <option value="admin">Admin</option>
                 <option value="standard" >Standard</option>
             </select>
-            <button type="submit">Add</button>
+
+
+
+            
+            <div className="form-check form-switch">
+                <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
+                <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+            </div>
+            <div className="form-check form-switch">
+                <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
+                <label className="form-check-label" htmlFor="timeStudy">time study</label>
+            </div>
+            <div className="form-check form-switch">
+                <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
+                <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
+            </div>
+            <button className="btn btn-dark" type="submit">Add</button>
+            <hr></hr>
         </form>
+    </div>
     </div>)
 
      // Helper Functions

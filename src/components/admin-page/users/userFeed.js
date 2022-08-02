@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Query from './query.js';
 import AddUser from './AddUser';
+import "./userFeed.css";
+import NavBar from '../utilities/navbar.js';
 export default function UserFeed() {
     const [users, setUsers] = useState([{__v: 0,
         _id: "",
@@ -53,7 +55,7 @@ export default function UserFeed() {
     let userList = users.slice(range[0], range[1]);
     let listItems = userList.map((user) => <User getUsers={getUsers} key={user._id} _id={user._id} user={user}/>)
     return (<div>
-                <h1>Users</h1>
+            <NavBar/>
                 <Query getUsers = {getUsers} setUsers = {setUsers}/>
                 {blankUser}
                 <i onClick={addUser} class="fa-solid fa-plus"></i>
@@ -100,20 +102,32 @@ export function User(props) {
     return (
     <div className="container">
         <form onSubmit= {onSubmit}>
-        <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
-            <div class="mb-3">
-                <label htmlFor="username" class="form-label">username</label>
-                <input onChange={usernameChange} defaultValue={props.user.username} type="text" class="form-control" id="username"></input>
+        <i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
+            <div className='row'>
+                <div class="mb-3 col">
+                    <label htmlFor="username" class="form-label">username</label>
+                    <input onChange={usernameChange} defaultValue={props.user.username} type="text" class="form-control" id="username"></input>
+                 </div>
+                <div class="mb-3 col">
+                    <label htmlFor="email" className="form-label">email</label>
+                    <input onChange={emailChange} defaultValue={props.user.email} type="text" className="form-control" id="email"></input>
+                </div>
             </div>
-            <div class="mb-3">
-                <label htmlFor="email" className="form-label">email</label>
-                <input onChange={emailChange} defaultValue={props.user.email} type="text" className="form-control" id="email"></input>
-            </div>
-            <div class="mb-3">
+            <div className="row">
+            <div class="col mb-3">
                 <label htmlFor="password" class="form-label">password</label>
                 <input onChange={passwordChange} defaultValue={props.user.password} type="text" class="form-control" id="password"></input>
             </div>
+            </div>
 
+            <select className="form-select" value={selected} onChange={setPrivilege}>
+                <option value="admin">Admin</option>
+                <option value="standard" >Standard</option>
+            </select>
+
+
+
+            
             <div className="form-check form-switch">
                 <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
                 <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
@@ -126,14 +140,7 @@ export function User(props) {
                 <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
                 <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
             </div>
-
-
-
-            <select value={selected} onChange={setPrivilege}>
-                <option value="admin">Admin</option>
-                <option value="standard" >Standard</option>
-            </select>
-            <button type="submit">Submit Changes</button>
+            <button className="btn btn-dark" type="submit">Submit Changes</button>
             <hr></hr>
         </form>
     </div>)

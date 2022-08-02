@@ -7,6 +7,7 @@ import "./edit.css";
 import Form from './form-edit.js'
 import Query from './query.js'
 import AddQuestion from './AddQuestion';
+import NavBar from "./utilities/navbar";
 
 export function Questions (props) {
   const [count, setCount] = useState(0);
@@ -105,6 +106,7 @@ export default function Edit (props) {
 
       return(
       <div>
+        <NavBar/>
         <h1>{quiz[0].name}</h1>
         <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
          {blankQuestion}

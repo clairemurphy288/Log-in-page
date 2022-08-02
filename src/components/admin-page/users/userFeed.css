@@ -1,0 +1,12 @@
+.priv-group{
+    display:inline-block;
+}
+/* icon */
+.questionDeletion {
+    position: absolute;
+    right: 10px;
+}
+.form-check-input:checked {
+    background-color: grey;
+    border-color: grey;
+  }
