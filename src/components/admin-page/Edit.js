@@ -103,11 +103,14 @@ export default function Edit (props) {
 
     }
 
-      return(<div><h1>{quiz[0].name}</h1>
-      <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
-      {blankQuestion}
-      <i onClick={addQuestion} class="fa-solid fa-plus"></i>
-      <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
+      return(
+      <div>
+        <h1>{quiz[0].name}</h1>
+        <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
+         {blankQuestion}
+          <i onClick={addQuestion} class="fa-solid fa-plus"></i>
+          <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/>
+      </div>)
       
      
       

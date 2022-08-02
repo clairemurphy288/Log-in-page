@@ -26,11 +26,16 @@ export default function Items (props) {
     }
     const listItems = quizzes.map((quiz) =>    
     <li className="list-group-item d-flex justify-content-between align-items-start" key={quiz._id}><h4 className="live-quiz-item">{quiz.name}</h4>
-        <span><i onClick = {() => {handleRemove(quiz._id)}} className="fa-solid fa-trash"></i>
-        <Link to={{pathname: "/edit" + "/" + quiz._id + "/0"}}><i className="fa-solid fa-pen"></i></Link>
+        <span>
+            <i onClick = {() => {handleRemove(quiz._id)}} className="fa-solid fa-trash"></i>
+            <Link to={{pathname: "/edit" + "/" + quiz._id + "/0"}}><i className="fa-solid fa-pen"></i></Link>
         </span>
-    </li>  );  return (
-      <div className="container"><h1>Live Quizzes</h1><ul className="list-group list-group-flush">{listItems}</ul></div>  );
+    </li>);  
+    return (
+    <div className="container">
+        <h1>Live Quizzes</h1>
+        <ul className="list-group list-group-flush">{listItems}</ul>
+    </div>);
   }
 
         

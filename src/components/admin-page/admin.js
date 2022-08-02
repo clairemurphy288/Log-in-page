@@ -3,6 +3,8 @@ import LiveQuiz from "./LiveQuiz";
 import axios from 'axios';
 import "./admin.css"
 import { Link } from 'react-router-dom';
+import NavBar from "./utilities/navbar";
+
 
 export default class Admin extends Component {
     constructor(props) {
@@ -61,6 +63,7 @@ export default class Admin extends Component {
     render () {
         return (
         <div>
+            <NavBar/>
             <LiveQuiz createdQuizzes={this.state.resData}/>
             <hr></hr>
             <div className="container creation-dash">
@@ -80,9 +83,6 @@ export default class Admin extends Component {
             
             </form>
             </div>
-            <hr></hr>
-            <Link to="/user"><h1>Users</h1></Link>
-
         </div>
         )
     }
