@@ -107,7 +107,6 @@ export default function Edit (props) {
       <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
       {blankQuestion}
       <i onClick={addQuestion} class="fa-solid fa-plus"></i>
-      <hr></hr>
       <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
       
      

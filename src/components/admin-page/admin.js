@@ -72,7 +72,6 @@ export default class Admin extends Component {
                 <label htmlFor="title" class="form-label">Title</label>
                 <input onChange={this.titleChange} type="text" className="form-control" id="title"></input>
             </div>
-                <br></br>
                 <div class="mb-3">
                     <input onChange={this.onChange} class="form-control" type="file" id="formFile"></input>
                 </div>
