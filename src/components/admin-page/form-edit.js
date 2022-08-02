@@ -35,15 +35,21 @@ export default function Form(props) {
     }
     const answerItems = props.answerChoices.map((answer,index) => (<Answer selectedAnswer={selectedAnswer} setAnswer={setAnswer} setData={setData} data={data} onChange = {onChange} answerChoices={props.answerChoices} index={index} answer={answer}/>))
     return (
-<div>
+<div className="container">
+<i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
+<div className="">
   <form onSubmit={onSubmit}>
-  <textarea ref={input} onChange={onChange}  defaultValue = {props.question} cols="50" rows="10"></textarea>
-  <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
+  <div class="mb-3">
+  <textarea className="form-control" ref={input} onChange={onChange}  defaultValue = {props.question}></textarea>
+</div>
+  
+  
         <h6>Select the correct answer: </h6>
     <div>{answerItems}</div>
-    <button type="submit">Submit Changes</button>
+    <button className= "btn btn-dark"type="submit">Submit Changes</button>
     <hr></hr>
     </form>
+</div>
 </div>
 
     )
@@ -54,7 +60,7 @@ export default function Form(props) {
 }
 
 function Answer(props) {
-    const [style, setStyle] = useState("")
+    const [style, setStyle] = useState("form-control")
     const textInput = React.useRef();
     const [clicked, setClick] = useState(false);
     
@@ -79,29 +85,34 @@ function Answer(props) {
     function onClick() {
         
         if (props.selectedAnswer === props.index) {
-            setStyle("");
+            setStyle("form-control");
             setClick(true);
             props.setAnswer(-1);
+            console.log(style)
             //remove class
-            console.log("selected");
         } else if(props.selectedAnswer === -1) {
             setClick(true);
             props.setAnswer(props.index);
-            setStyle("select");
+            setStyle("select " + style);
+            console.log(style)
 
         }
     }
 
     useEffect(() => {
         if (props.selectedAnswer === props.index  && !clicked) {
-            setStyle(style + "select");
+            setStyle("select " + style);
+            console.log(style)
         } 
 
     },[props.selectedAnswer])
 
     return (
-
-            <input className = {style} onClick={onClick} onChange={onChange} ref={textInput} type = "text" defaultValue={props.answer}></input>
+            <div className="mb-3 row">
+                <div className="col-lg-6">
+                <input className = {style} onClick={onClick} onChange={onChange} ref={textInput} type = "text" defaultValue={props.answer}></input>
+                </div>
+            </div>
       )
 }
 
