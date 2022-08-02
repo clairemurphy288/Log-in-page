@@ -98,27 +98,37 @@ export function User(props) {
         props.getUsers();
     }
     return (
-    <div>
+    <div className="container">
         <form onSubmit= {onSubmit}>
         <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
-            <label>username</label>
-            <input onChange={usernameChange} defaultValue={props.user.username}></input>
-            <label>email</label>
-            <input onChange={emailChange} defaultValue={props.user.email}></input>
-            <label>password</label>
-            <input onChange={passwordChange} defaultValue={props.user.password}></input>
-            <div className="form-check">
+            <div class="mb-3">
+                <label htmlFor="username" class="form-label">username</label>
+                <input onChange={usernameChange} defaultValue={props.user.username} type="text" class="form-control" id="username"></input>
+            </div>
+            <div class="mb-3">
+                <label htmlFor="email" className="form-label">email</label>
+                <input onChange={emailChange} defaultValue={props.user.email} type="text" className="form-control" id="email"></input>
+            </div>
+            <div class="mb-3">
+                <label htmlFor="password" class="form-label">password</label>
+                <input onChange={passwordChange} defaultValue={props.user.password} type="text" class="form-control" id="password"></input>
+            </div>
+
+            <div className="form-check form-switch">
                 <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
                 <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
             </div>
-            <div className="form-check">
+            <div className="form-check form-switch">
                 <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
                 <label className="form-check-label" htmlFor="timeStudy">time study</label>
             </div>
-            <div className="form-check">
+            <div className="form-check form-switch">
                 <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
                 <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
             </div>
+
+
+
             <select value={selected} onChange={setPrivilege}>
                 <option value="admin">Admin</option>
                 <option value="standard" >Standard</option>
