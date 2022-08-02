@@ -8,3 +8,16 @@ h1 {
     font-weight: 300;
 
 }
+/* icons */
+.fa-trash {
+    margin: 12px;
+    color: grey;
+    opacity: .8;
+}
+.fa-trash:hover {
+    cursor:pointer;
+}
+.fa-pen {
+    color: grey;
+    opacity: .5;
+}

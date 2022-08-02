@@ -2,7 +2,9 @@ import {Link} from 'react-router-dom';
 export default function NavBar(props) {
     return(<nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
+    <Link className="nav-link active"  to="/admin">
       <a class="navbar-brand" href="#"><i class="fa-solid fa-house"></i></a>
+    </Link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
