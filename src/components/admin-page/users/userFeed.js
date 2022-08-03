@@ -64,12 +64,17 @@ export default function UserFeed() {
                 <Query getUsers = {getUsers} setUsers = {setUsers}/>
                 {blankUser}
                 </div>
+                <div className= "mb-3 px-3 d-flex justify-content-between">
+                    <i onClick={decrementPage} class="fa-solid fa-arrow-left-long fa-xl arrow-icon"></i>
+                    <i onClick={incrementPage} class="fa-solid fa-arrow-right-long fa-xl arrow-icon"></i>
+                </div>
                 <hr></hr>
-                <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
-                <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
                 <div>{listItems}</div>
-                <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
-                <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
+                <hr></hr>
+                <div className= "mb-3 px-3 d-flex justify-content-between">
+                    <i onClick={decrementPage} class="fa-solid fa-arrow-left-long fa-xl arrow-icon"></i>
+                    <i onClick={incrementPage} class="fa-solid fa-arrow-right-long fa-xl arrow-icon"></i>
+                </div>
 
             </div>)
 }
@@ -107,7 +112,7 @@ export function User(props) {
         props.getUsers();
     }
     return (
-    <div className="my-3 container user-container">
+    <div className="my-5 container user-container">
         <form onSubmit= {onSubmit}>
         <i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
             <div className='row'>

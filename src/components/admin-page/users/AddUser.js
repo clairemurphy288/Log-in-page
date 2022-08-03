@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 export default function AddUser(props) {
+    //There has to be a simpler way! I want to ditch all these state hooks.
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -10,7 +11,6 @@ export default function AddUser(props) {
     const [selected, setOption] = useState("standard");
 
     function onClick(e) {
-        console.log("delete");
         props.setBlankUser(<div className="add-user-container"><h5 className="circle-label">Add a new user</h5>
         <i onClick={props.onClick} class="fa-solid fa-circle-plus fa-xl"></i></div>)
     }
