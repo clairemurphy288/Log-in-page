@@ -13,13 +13,17 @@
   .circle-label {
     display: inline-block;
     margin-right: 10px;
-    
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+
   }
   .add-user-container{
     margin: 7px;
   }
   .user-container{
-    
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    /* want to style the containers of each user */
   }
   .floating-label{
     margin-left: 5px;
@@ -30,4 +34,8 @@
   }
   .arrow-icon:hover {
     cursor: pointer;
+  }
+  .check-label {
+    /* font-family: 'Raleway', sans-serif;
+    font-weight: 500; */
   }

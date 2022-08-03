@@ -139,15 +139,15 @@ export function User(props) {
             <div className="my-1">
                 <div className="form-check form-switch">
                     <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
-                    <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+                    <label className="form-check-label check-label" htmlFor="quizDash">quiz dashboard</label>
                 </div>
                 <div className="form-check form-switch">
                     <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
-                    <label className="form-check-label" htmlFor="timeStudy">time study</label>
+                    <label className="form-check-label check-label" htmlFor="timeStudy">time study</label>
                 </div>
                 <div className="form-check form-switch">
                     <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
-                    <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
+                    <label className="form-check-label check-label" htmlFor="maintenancePlan">maintenance plan</label>
                 </div>
             </div>
             <button className="btn btn-dark my-1" type="submit">Submit Changes</button>
