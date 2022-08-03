@@ -1,6 +1,6 @@
 import react from 'react';
 import axios from 'axios';
-import Questions from './edit-quizzes-admin';
+import Questions from './Edit';
 
 
 export default function Query(props) {
@@ -17,11 +17,11 @@ export default function Query(props) {
             .catch(function (error) {
       });
     }
-    return(<div class="input-group">
-    <div class="form-outline">
+    return(
+      
+    <div class="input-group">
       <input onChange={onChange} type="search" id="form1" class="form-control" />
-    </div>
-    <button onClick={onSubmit} class="btn btn-primary">
+    <button onClick={onSubmit} class="btn btn-warning">
       <i class="fas fa-search"></i>
     </button>
   </div>)

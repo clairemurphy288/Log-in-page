@@ -2,6 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Query from './query.js';
+import AddUser from './AddUser';
+import "./userFeed.css";
+import NavBar from '../utilities/navbar.js';
 export default function UserFeed() {
     const [users, setUsers] = useState([{__v: 0,
         _id: "",
@@ -19,6 +22,11 @@ export default function UserFeed() {
     } );
     const [count, setCount] = useState(0);
     const [range, setRange] = useState([count, count+10]);
+    const [blankUser, setBlankUser] = useState(
+                                <div className="add-user-container">
+                                    <h5 className="circle-label">Add a new user</h5>
+                                    <i onClick={addUser} class="fa-solid fa-circle-plus fa-xl"></i>
+                                </div>)
 
     useEffect(() => {
         setRange([count*10, count*10 + 10]);
@@ -42,16 +50,31 @@ export default function UserFeed() {
         }
 
     }
+    function addUser(e) {
+        setBlankUser(<AddUser onClick = {addUser} getUsers={getUsers} setBlankUser={setBlankUser}/>)
+
+    }
     let numberOfPages = Math.round(users.length/10);
     let userList = users.slice(range[0], range[1]);
     let listItems = userList.map((user) => <User getUsers={getUsers} key={user._id} _id={user._id} user={user}/>)
     return (<div>
-                <h1>Users</h1>
+            <NavBar/>
+            
+                <div className="container">
                 <Query getUsers = {getUsers} setUsers = {setUsers}/>
+                {blankUser}
+                </div>
+                <div className= "mb-3 px-3 d-flex justify-content-between">
+                    <i onClick={decrementPage} class="fa-solid fa-arrow-left-long fa-xl arrow-icon"></i>
+                    <i onClick={incrementPage} class="fa-solid fa-arrow-right-long fa-xl arrow-icon"></i>
+                </div>
                 <hr></hr>
                 <div>{listItems}</div>
-                <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
-                <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
+                <hr></hr>
+                <div className= "mb-3 px-3 d-flex justify-content-between">
+                    <i onClick={decrementPage} class="fa-solid fa-arrow-left-long fa-xl arrow-icon"></i>
+                    <i onClick={incrementPage} class="fa-solid fa-arrow-right-long fa-xl arrow-icon"></i>
+                </div>
 
             </div>)
 }
@@ -89,33 +112,45 @@ export function User(props) {
         props.getUsers();
     }
     return (
-    <div>
+    <div className="my-5 container user-container">
         <form onSubmit= {onSubmit}>
-        <i onClick={onClick}className="fa-solid fa-trash-can questionDeletion"></i>
-            <label>username</label>
-            <input onChange={usernameChange} defaultValue={props.user.username}></input>
-            <label>email</label>
-            <input onChange={emailChange} defaultValue={props.user.email}></input>
-            <label>password</label>
-            <input onChange={passwordChange} defaultValue={props.user.password}></input>
-            <div className="form-check">
-                <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
-                <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+        <i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
+            <div className='row'>
+                <div class="mb-3 col form-floating">
+                    <input onChange={usernameChange} defaultValue={props.user.username} type="text" class="form-control" id="username"></input>
+                    <label className="floating-label" htmlFor="username">username</label>
+                 </div>
+                <div class="mb-3 col form-floating">
+                    <input onChange={emailChange} defaultValue={props.user.email} type="text" className="form-control" id="email"></input>
+                    <label className="floating-label" htmlFor="email">email</label>
+                </div>
             </div>
-            <div className="form-check">
-                <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
-                <label className="form-check-label" htmlFor="timeStudy">time study</label>
+            <div className="row">
+            <div class="col mb-3 form-floating">
+                <input onChange={passwordChange} defaultValue={props.user.password} type="text" class="form-control" id="password"></input>
+                <label className="floating-label" htmlFor="password">password</label>
             </div>
-            <div className="form-check">
-                <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
-                <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
             </div>
-            <select value={selected} onChange={setPrivilege}>
+
+            <select className="form-select" value={selected} onChange={setPrivilege}>
                 <option value="admin">Admin</option>
                 <option value="standard" >Standard</option>
             </select>
-            <button type="submit">Submit Changes</button>
-            <hr></hr>
+            <div className="my-1">
+                <div className="form-check form-switch">
+                    <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
+                    <label className="form-check-label check-label" htmlFor="quizDash">quiz dashboard</label>
+                </div>
+                <div className="form-check form-switch">
+                    <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
+                    <label className="form-check-label check-label" htmlFor="timeStudy">time study</label>
+                </div>
+                <div className="form-check form-switch">
+                    <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
+                    <label className="form-check-label check-label" htmlFor="maintenancePlan">maintenance plan</label>
+                </div>
+            </div>
+            <button className="btn btn-dark my-1" type="submit">Submit Changes</button>
         </form>
     </div>)
     // Helper Functions

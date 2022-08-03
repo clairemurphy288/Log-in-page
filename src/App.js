@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./components/login.js";
 import Admin from "./components/admin-page/admin.js"
-import Edit from "./components/admin-page/edit-quizzes-admin"
+import Edit from "./components/admin-page/Edit"
 import UserFeed from './components/admin-page/users/userFeed'
 
 function App() {

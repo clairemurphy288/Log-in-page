@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
-import "./live-quizzes-admin.css";
+import "./LiveQuiz.css";
 import Items from "./Items";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -45,7 +45,6 @@ export default class LiveQuiz extends Component {
     render () {
         return (
         <div>
-            <h1>Live Quizzes</h1>
             <Items quizObject = {this.state.quizObjectData[1]} quizTitle = {this.state.quizObjectData[0]}/>
             
         </div>)

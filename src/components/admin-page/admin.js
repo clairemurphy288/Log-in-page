@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import LiveQuiz from "./live-quizzes-admin";
+import LiveQuiz from "./LiveQuiz";
 import axios from 'axios';
 import "./admin.css"
-import UserFeed from './users/userFeed';
 import { Link } from 'react-router-dom';
+import NavBar from "./utilities/navbar";
+
 
 export default class Admin extends Component {
     constructor(props) {
@@ -62,22 +63,26 @@ export default class Admin extends Component {
     render () {
         return (
         <div>
+            <NavBar/>
             <LiveQuiz createdQuizzes={this.state.resData}/>
             <hr></hr>
-        
+            <div className="container creation-dash">
+            <h1>Create a new quiz</h1>
             <form onSubmit = {this.onSubmit}>
-            <div className="">
-                <h1>Create a new quiz</h1>
-                <label htmlFor="quizTitle">Title</label>
-                <input onChange = {this.titleChange} id="quizTitle" type="text" ></input>
-                <br></br>
-                <input onChange= {this.onChange}type="file"></input>
-                <button type="submit">Submit</button>
+            
+            
+            <div class="mb-3">
+                <label htmlFor="title" class="form-label">Title</label>
+                <input onChange={this.titleChange} type="text" className="form-control" id="title"></input>
             </div>
-            </form>
-            <hr></hr>
-            <Link to="/user"><h1>Users</h1></Link>
+                <div class="mb-3">
+                    <input onChange={this.onChange} class="form-control" type="file" id="formFile"></input>
+                </div>
 
+                <button className="btn btn-primary" type="submit">Submit</button>
+            
+            </form>
+            </div>
         </div>
         )
     }

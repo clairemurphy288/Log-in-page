@@ -8,7 +8,9 @@ router.route('/admin').post( async (req,res) => {
         console.log(title);
         let quiz = req.body[0].fileContent;
         quiz = quiz.replace(/\n/g, "").trim();
+        console.log(quiz)
         quiz = quiz.split("\r");
+        console.log(quiz);
         const questions = [];
         for (let i = 1; i < quiz.length; i++) {
             let line = quiz[i].trim().split("\t");
@@ -88,10 +90,18 @@ router.route('/admin/quiz/query').post(async (req,res) => {
     console.log(req.body);
     const quizId = new ObjectId(req.body._id);
     const reg = new RegExp(req.body.search, 'i')
+    // Fix this query
     const questions = await Quiz.aggregate([{$match: {_id: quizId}}, {$unwind:{path: '$questions'}},
     {$unwind:{path: '$questions.question'}}, {$match: {'questions.question': reg}}, {$project: {_id:0, name:0}}]);
     console.log(questions)
     res.send(questions);
     
+});
+router.route('/admin/add').post(async (req,res) => {
+    const quiz = new ObjectId(req.body._id);
+    const value = await Quiz.updateOne({_id: quiz}, {$push: {questions: req.body.question}});
+    console.log(value)
+
+    res.send("connected to backend");
 });
 module.exports = router;

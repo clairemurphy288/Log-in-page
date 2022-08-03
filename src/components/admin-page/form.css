@@ -3,11 +3,17 @@
     color: green;
     margin: 10px;
 }
+.select:focus {
+    color:green;
+}
 
 h6{
     display: block;
 }
 .questionDeletion {
-    float: right;
-    margin-right: 20px;
+   position :absolute;
+   right: 5px;
+}
+input {
+    display: block;
 }

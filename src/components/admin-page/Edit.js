@@ -6,6 +6,8 @@ import axios from 'axios';
 import "./edit.css";
 import Form from './form-edit.js'
 import Query from './query.js'
+import AddQuestion from './AddQuestion';
+import NavBar from "./utilities/navbar";
 
 export function Questions (props) {
   const [count, setCount] = useState(0);
@@ -29,7 +31,6 @@ export function Questions (props) {
           questions.push(props.searchedQuestions[i].questions);
         }
         setList(questions);
-        console.log("hi")
       } 
 
     },[props.searchedQuestions])
@@ -61,7 +62,6 @@ let subList = list.slice(range[0], range[1]);
 let listItems;
 
 listItems = subList.map((question, index) =>  <Form setQuestions = {props.setQuestions} search={props.search} indexOfAnswer={question.indexOfAnswer} setQuiz={props.setQuiz} quizId = {props.quiz[0]._id} id={question._id} key={question._id} question = {question.question} answerChoices = {question.answerChoices}/>)
-
  
 return (
   <div>
@@ -83,8 +83,8 @@ export default function Edit (props) {
     const [search, setSearch] = useState("");
     const [searchedQuestions, setQuestions] = useState([]);
     const {query} = useParams();
+    const [blankQuestion, setBlankQuestion] = useState(<h1>Nothing Rendered</h1>)
     useEffect(() => {
-      console.log("name")
       if (quiz[0].name === "") {
         getResponse();
       }});
@@ -95,11 +95,22 @@ export default function Edit (props) {
           })
           .catch(function (error) {
     });
-     } 
+     }
+    function addQuestion(e) {
+      console.log("add");
+      setBlankQuestion(<AddQuestion _id={quiz[0]._id} setBlankQuestion={setBlankQuestion}/>)
 
-      return(<div><h1>{quiz[0].name}</h1>
-      <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
-      <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/></div>)
+    }
+
+      return(
+      <div>
+        <NavBar/>
+        <h1>{quiz[0].name}</h1>
+        <Query setQuestions = {setQuestions}quizId ={quiz[0]._id} setSearch = {setSearch} search={search}/>
+         {blankQuestion}
+          <i onClick={addQuestion} class="fa-solid fa-plus"></i>
+          <Questions setQuestions = {setQuestions} search = {search} searchedQuestions = {searchedQuestions} setQuiz={setQuiz} quiz = {quiz}/>
+      </div>)
       
      
       
