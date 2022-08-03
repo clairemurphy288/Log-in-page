@@ -11,7 +11,8 @@ export default function AddUser(props) {
 
     function onClick(e) {
         console.log("delete");
-        props.setBlankUser(<h1>Work Deleted!</h1>)
+        props.setBlankUser(<div className="add-user-container"><h5 className="circle-label">Add a new user</h5>
+        <i onClick={props.onClick} class="fa-solid fa-circle-plus fa-xl"></i></div>)
     }
     async function onSubmit(e) {
         e.preventDefault();

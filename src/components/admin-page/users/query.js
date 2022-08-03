@@ -26,7 +26,7 @@ export default function Query(props) {
     }
     return(<div class="input-group">
       <input onChange={onChange} type="search" id="form1" class="form-control" />
-    <button onClick={onSubmit} class="btn btn-dark">
+    <button onClick={onSubmit} class="btn btn-warning">
       <i class="fas fa-search"></i>
     </button>
   </div>)

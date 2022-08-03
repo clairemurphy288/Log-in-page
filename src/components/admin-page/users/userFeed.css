@@ -10,3 +10,16 @@
     background-color: grey;
     border-color: grey;
   }
+  .circle-label {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .add-user-container{
+    margin: 7px;
+  }
+  .user-container{
+    
+  }
+  .floating-label{
+    margin-left: 5px;
+  }

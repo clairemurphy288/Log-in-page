@@ -22,7 +22,11 @@ export default function UserFeed() {
     } );
     const [count, setCount] = useState(0);
     const [range, setRange] = useState([count, count+10]);
-    const [blankUser, setBlankUser] = useState(<div><h1>Add a new user!</h1></div>)
+    const [blankUser, setBlankUser] = useState(
+                                <div className="add-user-container">
+                                    <h5 className="circle-label">Add a new user</h5>
+                                    <i onClick={addUser} class="fa-solid fa-circle-plus fa-xl"></i>
+                                </div>)
 
     useEffect(() => {
         setRange([count*10, count*10 + 10]);
@@ -47,8 +51,7 @@ export default function UserFeed() {
 
     }
     function addUser(e) {
-        console.log("add user");
-        setBlankUser(<AddUser getUsers={getUsers} setBlankUser={setBlankUser}/>)
+        setBlankUser(<AddUser onClick = {addUser} getUsers={getUsers} setBlankUser={setBlankUser}/>)
 
     }
     let numberOfPages = Math.round(users.length/10);
@@ -56,10 +59,14 @@ export default function UserFeed() {
     let listItems = userList.map((user) => <User getUsers={getUsers} key={user._id} _id={user._id} user={user}/>)
     return (<div>
             <NavBar/>
+            
+                <div className="container">
                 <Query getUsers = {getUsers} setUsers = {setUsers}/>
                 {blankUser}
-                <i onClick={addUser} class="fa-solid fa-plus"></i>
+                </div>
                 <hr></hr>
+                <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
+                <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
                 <div>{listItems}</div>
                 <i onClick={decrementPage} class="fa-solid fa-arrow-left-long"></i>
                 <i onClick={incrementPage} class="fa-solid fa-arrow-right-long"></i>
@@ -100,23 +107,23 @@ export function User(props) {
         props.getUsers();
     }
     return (
-    <div className="container">
+    <div className="my-3 container user-container">
         <form onSubmit= {onSubmit}>
         <i onClick={onClick}className="fa-solid fa-trash questionDeletion"></i>
             <div className='row'>
-                <div class="mb-3 col">
-                    <label htmlFor="username" class="form-label">username</label>
+                <div class="mb-3 col form-floating">
                     <input onChange={usernameChange} defaultValue={props.user.username} type="text" class="form-control" id="username"></input>
+                    <label className="floating-label" htmlFor="username">username</label>
                  </div>
-                <div class="mb-3 col">
-                    <label htmlFor="email" className="form-label">email</label>
+                <div class="mb-3 col form-floating">
                     <input onChange={emailChange} defaultValue={props.user.email} type="text" className="form-control" id="email"></input>
+                    <label className="floating-label" htmlFor="email">email</label>
                 </div>
             </div>
             <div className="row">
-            <div class="col mb-3">
-                <label htmlFor="password" class="form-label">password</label>
+            <div class="col mb-3 form-floating">
                 <input onChange={passwordChange} defaultValue={props.user.password} type="text" class="form-control" id="password"></input>
+                <label className="floating-label" htmlFor="password">password</label>
             </div>
             </div>
 
@@ -124,24 +131,21 @@ export function User(props) {
                 <option value="admin">Admin</option>
                 <option value="standard" >Standard</option>
             </select>
-
-
-
-            
-            <div className="form-check form-switch">
-                <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
-                <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+            <div className="my-1">
+                <div className="form-check form-switch">
+                    <input onChange={setQuiz} checked={quizView}className="form-check-input" type="checkbox" value="" id="quizDash"></input>
+                    <label className="form-check-label" htmlFor="quizDash">quiz dashboard</label>
+                </div>
+                <div className="form-check form-switch">
+                    <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
+                    <label className="form-check-label" htmlFor="timeStudy">time study</label>
+                </div>
+                <div className="form-check form-switch">
+                    <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
+                    <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
+                </div>
             </div>
-            <div className="form-check form-switch">
-                <input onChange={setTimer} checked={timer} className="form-check-input" type="checkbox" value="" id="timeStudy"></input>
-                <label className="form-check-label" htmlFor="timeStudy">time study</label>
-            </div>
-            <div className="form-check form-switch">
-                <input onChange={setMaintenancePlan} checked={maintenance} className="form-check-input" type="checkbox" value="" id="maintenancePlan"></input>
-                <label className="form-check-label" htmlFor="maintenancePlan">maintenance plan</label>
-            </div>
-            <button className="btn btn-dark" type="submit">Submit Changes</button>
-            <hr></hr>
+            <button className="btn btn-dark my-1" type="submit">Submit Changes</button>
         </form>
     </div>)
     // Helper Functions
