@@ -13,6 +13,7 @@
   .circle-label {
     display: inline-block;
     margin-right: 10px;
+    
   }
   .add-user-container{
     margin: 7px;
@@ -22,4 +23,11 @@
   }
   .floating-label{
     margin-left: 5px;
+  }
+  .arrow-icon {
+    color:rgb(33, 29, 65);
+    opacity: .7;
+  }
+  .arrow-icon:hover {
+    cursor: pointer;
   }
